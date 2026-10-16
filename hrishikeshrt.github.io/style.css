@@ -1,0 +1,420 @@
+/* =====================================================================
+   "Warm Academic" website style
+   Extracted from https://hrishikeshrt.github.io/
+   (source: github.com/hrishikeshrt/hrishikeshrt.github.io — a Hugo site
+   built with the Wowchemy "Academic" theme and a custom grey palette)
+
+   Look: Roboto Slab headings, Fira Sans body text, a quiet grey primary
+   colour, a warm blush navbar, sections alternating warm off-white and
+   white, a round portrait with romanised-name ruby text, publication
+   lists with outline buttons and a vertical experience timeline.
+
+   This file is standalone: no Bootstrap or Hugo theme needed.
+
+   Fonts (put in <head>):
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&family=Fira+Sans:ital,wght@0,400;0,700;1,400&family=Fira+Mono:wght@400;700&family=Sahitya:wght@400;700&display=swap" rel="stylesheet">
+   Icons (optional, used for social links and list bullets):
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css">
+
+   Contents
+     1. Design tokens (light + dark)
+     2. Base + typography
+     3. Navbar
+     4. Home sections + two-column layout
+     5. Profile (avatar, name with ruby text, social icons)
+     6. Callouts (note, warning box)
+     7. Interests + education lists
+     8. Publications
+     9. Experience timeline
+    10. Article / post pages
+    11. Footer
+    12. Responsive
+   ===================================================================== */
+
+
+/* ---------- 1. DESIGN TOKENS ---------- */
+:root{
+  --primary:#707070;          /* links, outline buttons, timeline */
+  --primary-dark:#575757;
+  --primary-hover:#000000;
+
+  --nav-bg:#f6eee9;           /* warm blush navbar */
+  --section-bg:#f9f7f6;       /* odd sections */
+  --section-bg-alt:#ffffff;   /* even sections */
+  --page-bg:#ffffff;
+  --card-bg:#ffffff;
+
+  --heading:#313131;
+  --text:rgba(0,0,0,.8);
+  --strong:#000000;
+  --muted:rgba(0,0,0,.54);
+  --rule:#dee2e6;
+
+  --info:#17a2b8;             /* publication date pill */
+  --warning:#ffc107;          /* call-out box border */
+  --light:#f8f9fa;
+  --note-text:#12537e;        /* blue "note" alert */
+  --note-bg:#f6fbfe;
+  --note-border:#1976d2;
+  --code:#e83e8c;
+
+  --shadow-card:0 2px 4px rgba(0,0,0,.2);
+  --shadow-nav:0 .125rem .25rem rgba(0,0,0,.11);
+
+  --font-heading:'Roboto Slab',Georgia,serif;
+  --font-body:'Fira Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'Fira Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-deva:'Sahitya','Martel','Noto Serif Devanagari',serif;
+
+  --container:1140px;
+  --article:760px;
+  --nav-h:70px;
+}
+
+/* Wowchemy's dark mode: <body class="dark"> */
+body.dark{
+  --nav-bg:#282a36;
+  --section-bg:#23252f;
+  --section-bg-alt:#282a36;
+  --page-bg:#23252f;
+  --card-bg:#343a40;
+  --heading:#ffffff;
+  --text:#f8f8f2;
+  --strong:#ffffff;
+  --muted:rgba(255,255,255,.54);
+  --rule:#44475a;
+  --light:#2c2e3a;
+  --note-text:#cfe6f7;
+  --note-bg:#1f2b3a;
+  --primary-hover:#ffffff;
+  --shadow-nav:0 .125rem .25rem rgba(255,255,255,.11);
+}
+
+
+/* ---------- 2. BASE + TYPOGRAPHY ---------- */
+*,*::before,*::after{box-sizing:border-box;}
+html{
+  font-family:var(--font-body);
+  font-size:13.86px;            /* 18px on wide screens, see §12 */
+  line-height:1.65;
+  color:var(--text);
+  scroll-padding-top:var(--nav-h);
+  -webkit-text-size-adjust:100%;
+}
+body{
+  margin:0;
+  background:var(--page-bg);
+  color:var(--text);
+  overflow-x:hidden;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4,h5,h6{
+  font-family:var(--font-heading);
+  font-weight:400;
+  line-height:1.25;
+  color:var(--heading);
+  margin:1rem 0 .5rem;
+  overflow-wrap:break-word;
+}
+h1{font-size:2.25rem;}
+h2{font-size:1.75rem;}
+h3{font-size:1.4rem;}
+p{margin:0 0 1rem;}
+a{color:var(--primary);text-decoration:none;transition:color .6s ease;}
+a:hover,a:focus{color:var(--primary-hover);}
+strong,b{font-weight:700;}
+code{font-family:var(--font-mono);font-size:87.5%;color:var(--code);word-wrap:break-word;}
+pre{
+  font-family:var(--font-mono);font-size:.8rem;
+  background:var(--light);border:1px solid var(--rule);border-radius:4px;
+  padding:8px 12px;margin:0 0 1rem;overflow:auto;white-space:pre-wrap;
+}
+pre code{color:inherit;font-size:inherit;}
+blockquote{
+  margin:.8rem 0;padding:.5rem 1rem .5rem 1.25rem;
+  color:#7a7a7a;border-left:.25rem solid #e5e5e5;font-size:1.1rem;
+}
+img{max-width:100%;height:auto;}
+:lang(hi),:lang(mr),:lang(sa),.deva{font-family:var(--font-deva);}
+.text-muted{color:var(--muted);}
+.middot-divider::after{content:'\00B7';padding:0 .45em;font-size:15px;}
+
+
+/* ---------- 3. NAVBAR ---------- */
+.navbar{
+  position:sticky;top:0;z-index:1030;
+  height:var(--nav-h);
+  background:var(--nav-bg);
+  box-shadow:var(--shadow-nav);
+  font-family:var(--font-heading);
+  font-size:13.86px;
+  line-height:1.25;
+}
+.navbar-inner{
+  max-width:var(--container);height:100%;margin:0 auto;padding:0 1rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.navbar-brand{
+  font-family:var(--font-deva);   /* the name is set in Devanagari */
+  font-weight:700;font-size:1.2rem;
+  color:var(--strong);text-decoration:none;white-space:nowrap;
+}
+.navbar-brand:hover{color:var(--strong);}
+.nav-links{
+  display:flex;align-items:center;gap:.25rem;
+  list-style:none;margin:0;padding:0;
+  overflow-x:auto;scrollbar-width:none;
+}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{
+  display:block;padding:5px 12px;
+  color:var(--strong);text-decoration:none;white-space:nowrap;
+}
+.nav-link:hover{color:var(--strong);opacity:.7;}
+.nav-link.active{font-weight:700;}
+
+
+/* ---------- 4. HOME SECTIONS + LAYOUT ---------- */
+.container{max-width:var(--container);margin:0 auto;padding:0 15px;}
+
+.home-section{background:var(--section-bg);padding:60px 0;}
+.home-section:first-of-type{padding-top:40px;}
+.home-section:nth-of-type(even){background:var(--section-bg-alt);}
+
+/* section title in a narrow left column, content on the right */
+.section-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:1rem 30px;
+}
+.section-heading h1{margin:0 0 10px;}
+.section-heading p{font-size:1.1rem;color:var(--muted);}
+.section-subheading{
+  font-family:var(--font-heading);font-weight:700;font-size:1.25rem;
+  margin:1rem 0 .5rem;color:var(--heading);
+}
+.see-all{margin-top:2rem;text-transform:uppercase;}
+.see-all a::after{content:" \203A";}
+
+/* biography heading has a rule under it */
+.bio-heading{padding-bottom:.6rem;border-bottom:1px solid var(--rule);margin:0 0 1rem;}
+.bio-text{text-align:justify;}
+.article-style a,.bio-text a{text-decoration:underline;text-underline-offset:2px;}
+
+
+/* ---------- 5. PROFILE ---------- */
+.profile{text-align:center;}
+.avatar{
+  display:block;width:200px;height:200px;margin:0 auto;
+  object-fit:cover;border-radius:50%;background:var(--light);
+}
+.portrait-title h2{
+  font-size:1.75em;font-weight:300;color:var(--strong);margin:20px 0 10px;
+}
+.portrait-title h3{
+  font-size:1rem;font-weight:300;color:var(--muted);margin:0 0 6px;
+}
+.portrait-title h3 a{color:var(--muted);}
+.portrait-title h3 a:hover{color:var(--primary-hover);}
+/* romanised name sits above the English name */
+.portrait-title ruby rt{font-size:.42em;font-weight:400;color:var(--strong);letter-spacing:.02em;}
+
+.network-icon{
+  display:inline-flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;
+  list-style:none;padding:0;margin:.5rem 0 0;
+}
+.network-icon a{color:var(--primary);font-size:1.5rem;line-height:1;}
+.network-icon li{transition:transform .2s ease;}
+.network-icon li:hover{transform:scale(1.2);}
+
+
+/* ---------- 6. CALLOUTS ---------- */
+/* blue info alert: <div class="alert alert-note"><div>…</div></div> */
+.alert{
+  position:relative;margin:0 0 1.5rem;padding:.75rem 1.25rem;
+  border:1px solid transparent;border-radius:.25rem;
+}
+.alert-note{color:var(--note-text);background:var(--note-bg);border-color:var(--note-border);}
+.alert > div{position:relative;margin-left:2rem;}
+.alert > div:first-child::before{
+  content:"i";position:absolute;left:-2rem;top:.15em;
+  width:1.3rem;height:1.3rem;border-radius:50%;
+  background:var(--note-border);color:#fff;
+  font:700 .85rem/1.3rem Georgia,serif;text-align:center;
+}
+.alert a{color:currentColor;text-decoration:none;border-bottom:1px solid;}
+
+/* yellow-bordered call-out box (".border .p-3 .border-warning .bg-light") */
+.callout{
+  padding:1rem;margin:0 0 1.5rem;
+  border:1px solid var(--warning);background:var(--light);
+}
+.callout a{text-decoration:underline;}
+
+
+/* ---------- 7. INTERESTS + EDUCATION ---------- */
+.about-lists{display:grid;grid-template-columns:minmax(0,1fr);gap:0 30px;}
+.ul-interests,
+.ul-edu{list-style:none;margin:0;padding:0;}
+.ul-interests li{
+  position:relative;padding-left:1.8rem;font-size:.9rem;margin-bottom:.15rem;
+}
+.ul-interests li > i:first-child,
+.ul-edu li > i:first-child{
+  position:absolute;left:0;top:.3em;width:1.3rem;text-align:center;color:var(--heading);
+}
+/* fallback bullet when no icon font is loaded */
+.ul-interests li:not(:has(> i))::before{
+  content:"";position:absolute;left:.35rem;top:.6em;
+  width:.55rem;height:.45rem;border:2px solid var(--heading);border-top-width:3px;
+}
+.ul-edu li{position:relative;padding:0 15px 4px 1.8rem;}
+.ul-edu li:not(:has(> i))::before{
+  content:"";position:absolute;left:.3rem;top:.55em;
+  width:.8rem;height:.4rem;background:var(--heading);
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+}
+.ul-edu .course{margin:0;font-size:.9rem;}
+.ul-edu .institution{margin:0;font-size:.75rem;color:var(--muted);}
+
+
+/* ---------- 8. PUBLICATIONS ---------- */
+.pub-list-item{margin-bottom:1rem;overflow:hidden;}
+.pub-icon{color:var(--muted);font-size:.81em;padding-right:6px;}
+.pub-title{font-weight:700;color:var(--primary);}
+.pub-title:hover{color:var(--primary-hover);}
+.article-metadata{
+  margin:0 0 5px;font-size:14px;letter-spacing:.03em;color:var(--muted);
+}
+.article-metadata a{color:var(--muted);}
+.article-metadata a:hover{color:var(--primary);}
+.author-highlighted{font-weight:700;color:var(--strong);}
+
+/* small outline buttons: Cite, PDF, Code … */
+.btn{
+  display:inline-block;vertical-align:middle;
+  font-family:var(--font-body);font-weight:400;
+  padding:5px .5rem;line-height:1;font-size:.75rem;
+  border:1px solid transparent;border-radius:.2rem;
+  background:transparent;text-decoration:none;cursor:pointer;
+  transition:color .15s,background-color .15s,border-color .15s;
+}
+.btn-outline{color:var(--primary);border-color:var(--primary);margin:6px 6px 6px 0;}
+.btn-outline:hover{color:#fff;background:var(--primary);}
+.btn-links{margin:0;}
+/* date pill floated right */
+.pub-date{
+  float:right;margin-left:8px;
+  color:var(--info);border-color:var(--info);opacity:.65;cursor:default;
+}
+
+
+/* ---------- 9. EXPERIENCE TIMELINE ---------- */
+.timeline{list-style:none;margin:0;padding:0;}
+.timeline-item{
+  position:relative;
+  padding:8px 0 8px 64px;
+}
+/* vertical line */
+.timeline-item::before{
+  content:"";position:absolute;left:20px;top:0;bottom:0;
+  border-left:1px solid var(--primary);
+}
+.timeline-item:first-child::before{top:50%;}
+.timeline-item:last-child::before{bottom:50%;}
+/* dot */
+.timeline-item::after{
+  content:"";position:absolute;left:12px;top:50%;
+  width:17px;height:17px;margin-top:-8px;border-radius:50%;
+  border:1px solid var(--primary);background:var(--page-bg);
+}
+.timeline-item.current::after{background:var(--primary);}
+.card{
+  background:var(--card-bg);
+  box-shadow:var(--shadow-card);
+  border-radius:.25rem;
+  padding:1.25rem;
+  transition:box-shadow .2s ease-out;
+}
+.card-simple{
+  background:var(--card-bg);border:1px solid rgba(0,0,0,.09);
+  box-shadow:0 1px 4px rgba(0,0,0,.04);border-radius:3px;padding:15px 20px;
+}
+.exp-head{display:flex;align-items:flex-start;gap:.75rem;}
+.exp-logo{width:56px;height:56px;flex:none;object-fit:contain;}
+.exp-title,
+.exp-company{
+  font-family:var(--font-heading);font-size:.9rem;line-height:1.5;
+  color:var(--muted);margin:0;
+}
+.exp-title{font-weight:700;}
+.exp-company{font-weight:400;}
+.exp-company a{color:var(--strong);}
+.exp-meta{font-size:.8rem;color:var(--muted);}
+.card-text{margin:.75rem 0 0;font-size:.75rem;color:var(--strong);}
+
+
+/* ---------- 10. ARTICLE / POST PAGES ---------- */
+.article-container{max-width:var(--article);margin:0 auto;padding:0 20px;}
+.article-header{padding-top:1.5rem;}
+.article-title{font-size:2.25rem;margin:0 0 .5rem;}
+.page-subtitle{font-size:1.15rem;color:var(--muted);margin:0 0 1rem;}
+.article-header .article-metadata{margin-bottom:20px;}
+.article-metadata .byline{display:block;font-weight:700;}
+.article-style{overflow-wrap:break-word;}
+.article-style h2{font-size:1.4rem;font-weight:700;margin-top:1.75rem;}
+.article-style h3{font-size:1.2rem;font-weight:700;}
+.article-style ul,.article-style ol{padding-left:1.6rem;}
+.article-style figure{margin:2rem 0;}
+.article-style figcaption{font-size:.85rem;color:var(--muted);text-align:center;}
+.article-tags{margin:1.5rem 0;}
+.badge-light{
+  display:inline-block;margin:0 8px 8px 0;padding:5px 10px;border-radius:3px;
+  font-size:.75rem;line-height:1;color:rgba(0,0,0,.68);background:rgba(0,0,0,.05);
+}
+body.dark .badge-light{color:rgba(255,255,255,.68);background:rgba(255,255,255,.2);}
+a.badge-light:hover{background:rgba(0,0,0,.1);color:rgba(0,0,0,.68);}
+.author-card{
+  display:flex;gap:1rem;align-items:flex-start;
+  margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);
+}
+.author-card .avatar{width:60px;height:60px;flex:none;margin:0;}
+.author-card h5{margin:0;font-size:1.1rem;}
+.author-card .role{font-family:var(--font-heading);font-size:.85rem;color:var(--muted);margin:0 0 .4rem;}
+.author-card p{font-size:.8rem;margin:0 0 .4rem;}
+
+
+/* ---------- 11. FOOTER ---------- */
+.site-footer{
+  padding:2rem 15px;text-align:center;
+  font-size:.67rem;color:var(--muted);
+}
+
+
+/* ---------- 12. RESPONSIVE ---------- */
+@media screen and (min-width:58em){
+  html{font-size:18px;}
+}
+@media (min-width:768px){
+  .about-lists{grid-template-columns:5fr 7fr;}
+}
+@media (min-width:992px){
+  .section-row{grid-template-columns:4fr 8fr;}
+}
+@media (max-width:991.98px){
+  :root{--nav-h:50px;}
+  .section-heading{text-align:center;}
+}
+@media (max-width:575.98px){
+  .timeline-item{padding-left:0;}
+  .timeline-item::before,
+  .timeline-item::after{display:none;}
+  .navbar-brand{font-size:1rem;}
+  .bio-text{text-align:left;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;}
+}
